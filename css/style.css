@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 800px;
+    position: relative;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.hangman-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+}
+
+#hangman {
+    width: 150px;
+    height: 300px;
+
+
+}
+
+#hangman>div {
+    position: absolute;
+    background-color: #000;
+
+}
+
+#base {
+    width: 150px;
+    height: 10px;
+    bottom: 0px;
+    left: 25px;
+}
+
+#secondbase {
+    width: 100px;
+    height: 10px;
+    top: 50px;
+    left: 25px;
+}
+
+#pole {
+    width: 10px;
+    height: 250px;
+    top: 50px;
+    left: 30px;
+}
+
+#rope {
+    width: 2px;
+    height: 40px;
+    top: 60px;
+    left: 120px;
+}
+
+#head {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    top: 100px;
+    left: 95px;
+}
+
+#body {
+    width: 6px;
+    height: 100px;
+    top: 150px;
+    left: 120px;
+}
+
+#left-arm,
+#right-arm {
+    width: 30px;
+    height: 6px;
+    top: 190px;
+}
+
+#left-arm {
+    transform: rotate(0deg);
+    left: 120px;
+}
+
+#right-arm {
+    transform: rotate(0deg);
+    right: 30px;
+}
+
+#left-leg,
+#right-leg {
+    width: 35px;
+    height: 6px;
+    top: 256px;
+}
+
+#left-leg {
+    transform: rotate(45deg);
+    left: 119px;
+}
+
+#right-leg {
+    transform: rotate(-45deg);
+    right: 22px;
+}
+
+.button {
+    background-color: #4a16cf;
+    border: 2px solid #04AA6D;
+    color: red;
+    font-size: 25px;
+    position: absolute; /* Example for button positioning */
+}
+
+#button1 {
+    left: 100px;
+    top: 300px;
+}
+
+#button2 {
+    left: 150px;
+    top: 400px;
+}
+
+#button3 {
+    left: 160px;
+    top: 500px;   
+}
