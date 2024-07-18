@@ -120,20 +120,17 @@ h2 {
     right: 22px;
 }
 
-.button {
+#button {
     background-color: #4a16cf;
     border: 2px solid #04AA6D;
     color: red;
     font-size: 25px;
-    position: absolute; /* Example for button positioning */
-}
-
-#button1 {
+    position: absolute;
     left: 100px;
     top: 300px;
 }
 
-#button2 {
+#animls {
     left: 150px;
     top: 400px;
 }

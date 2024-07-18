@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hangman Game</title>
-    <script src="./js/app.js"></script>
+    <!---<script src="./js/app.js"></script> --->
     <link rel="stylesheet" href="./css/style.css"> <!-- Link to your CSS file -->
-
 
 </head>
 
@@ -21,15 +20,13 @@
             <h2>How to Play</h2>
             <p>1. Choose a Category of words, the computer will ramdomly select from.</p>
             <p>2. Attempt to guess each latter in the word.</p>
-            <p>3. The player has 30 seconds to get the word right our he/she will lose the game.</p>
-            <p>4. The player has 5 guess before the hang man is compleated, once the hang an is compleated the player
+            <p>3. The player has 5 guess before the hang man is compleated, once the hang an is compleated the player
                 will lose the game</p>
         </div>
 
 
         <div class="column" style="background-color:#cf1919;">
             <h2>Hang Man</h2>
-            <!---<div id="title">Hang Man</div>--->
             <div class="hangman-logo">
                 <div id="hangman">
                     <div id="base"></div>
@@ -47,14 +44,17 @@
 
         </div>
 
-
         <div class="column" style="background-color:#cf1919;">
-            <button id="button1" class="button">Chose a Category</button>
-            <a href="page1.html" id="button2" class="bu" id="button3" class="button">Foods</button>
+            <button id="button" onclick="document.location='page1.html'">Start Game</button>
         </div>
 
 
-    </div>
+
+        
+        
+
+    
+
 
 </body>
 
