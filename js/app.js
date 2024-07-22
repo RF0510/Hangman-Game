@@ -1,27 +1,24 @@
-// categories arrays
 const animals = [
-    "lion", "elephant", "giraffe", "zebra", "tiger", 
+    "lion", "elephant", "giraffe", "zebra", "tiger",
     "monkey", "kangaroo", "penguin", "koala", "crocodile"
 ];
 
 const foods = [
-    "pizza", "hamburger", "spaghetti", "sushi", "pancake", 
+    "pizza", "hamburger", "spaghetti", "sushi", "pancake",
     "salad", "sandwich", "ice cream", "cake", "steak"
 ];
 
 let chosenWord = '';
 let wrongGuesses = 0;
 
-// Function to select a random word from an array
 function getRandomWord(categoryArray) {
     const randomIndex = Math.floor(Math.random() * categoryArray.length);
     return categoryArray[randomIndex];
 }
 
-// Function to display underscores for the chosen word
 function displayUnderscores(word) {
     const wordDisplay = document.getElementById('wordDisplay');
-    wordDisplay.innerHTML = ''; // Clear previous content
+    wordDisplay.innerHTML = ''; 
     for (let i = 0; i < word.length; i++) {
         const underscore = document.createElement('span');
         underscore.textContent = '_ ';
@@ -30,47 +27,73 @@ function displayUnderscores(word) {
     }
 }
 
-// Function to draw the hangman
+function drawStand() {
+    const canvas = document.getElementById('hangmanCanvas');
+    const context = canvas.getContext('2d');
+    context.lineWidth = 2;
+
+    
+    const yOffset = -20; 
+
+    context.moveTo(40, 180 + yOffset);
+    context.lineTo(200, 180 + yOffset);
+    context.stroke();
+
+    context.moveTo(80, 180 + yOffset);
+    context.lineTo(80, 20 + yOffset);
+    context.stroke();
+
+    context.moveTo(80, 20 + yOffset);
+    context.lineTo(160, 20 + yOffset);
+    context.stroke();
+
+    context.moveTo(160, 20 + yOffset);
+    context.lineTo(160, 40 + yOffset);
+    context.stroke();
+}
+
 function drawHangman(part) {
     const canvas = document.getElementById('hangmanCanvas');
     const context = canvas.getContext('2d');
     context.lineWidth = 2;
 
-    switch(part) {
-        case 1: // Head
+    const yOffset = -20; 
+
+    switch (part) {
+        case 1: 
             context.beginPath();
-            context.arc(100, 40, 10, 0, Math.PI * 2, true);
+            context.arc(160, 50 + yOffset, 10, 0, Math.PI * 2, true);
             context.stroke();
             break;
-        case 2: // Body
-            context.moveTo(100, 50);
-            context.lineTo(100, 90);
+        case 2: 
+            context.moveTo(160, 60 + yOffset);
+            context.lineTo(160, 100 + yOffset);
             context.stroke();
             break;
-        case 3: // Left arm
-            context.moveTo(100, 60);
-            context.lineTo(80, 75);
+        case 3:
+            context.moveTo(160, 70 + yOffset);
+            context.lineTo(140, 85 + yOffset);
             context.stroke();
             break;
-        case 4: // Right arm
-            context.moveTo(100, 60);
-            context.lineTo(120, 75);
+        case 4: 
+            context.moveTo(160, 70 + yOffset);
+            context.lineTo(180, 85 + yOffset);
             context.stroke();
             break;
-        case 5: // Left leg
-            context.moveTo(100, 90);
-            context.lineTo(85, 110);
+        case 5: 
+            context.moveTo(160, 100 + yOffset);
+            context.lineTo(145, 130 + yOffset);
             context.stroke();
             break;
-        case 6: // Right leg
-            context.moveTo(100, 90);
-            context.lineTo(115, 110);
+        case 6: 
+            context.moveTo(160, 100 + yOffset);
+            context.lineTo(175, 130 + yOffset);
             context.stroke();
             break;
     }
 }
 
-// Function to handle letter button clicks
+
 function handleLetterClick(event) {
     const letter = event.target.innerText.toLowerCase();
     let letterFound = false;
@@ -90,13 +113,19 @@ function handleLetterClick(event) {
         event.target.style.backgroundColor = 'green';
     }
 
-    if (wrongGuesses >= 6) {
-        alert('Game over!');
-        // Optionally, reset the game or disable all buttons
+    if (checkWin()) {
+        displayConfetti();
+        document.getElementById('wordDisplay').innerText = `You Win! The word was: ${chosenWord}`;
+        document.getElementById('resetButton').style.display = 'block';
+        disableAllButtons();
+    } else if (wrongGuesses >= 6) {
+        document.getElementById('wordDisplay').innerText = `You Lose! The word was: ${chosenWord}`;
+        document.getElementById('resetButton').style.display = 'block';
+        disableAllButtons();
     }
 }
 
-// Function to handle category button clicks and log the chosen word
+
 function handleCategorySelection(event) {
     let selectedCategory = [];
     if (event.target.id === 'animals') {
@@ -106,32 +135,65 @@ function handleCategorySelection(event) {
     }
 
     chosenWord = getRandomWord(selectedCategory);
-    console.log(`Chosen word: ${chosenWord}`);
-    document.getElementById('catrgory').innerText = `Chosen word: ${chosenWord}`;
-
-    // Display underscores for the chosen word
     displayUnderscores(chosenWord);
 
-    // Enable all letter buttons and reset their style
+
     const letterButtons = document.querySelectorAll('.letter');
     letterButtons.forEach(button => {
         button.disabled = false;
         button.style.backgroundColor = '';
     });
 
-    // Reset wrong guesses and clear the canvas
-    wrongGuesses = 0;
-    const canvas = document.getElementById('hangmanCanvas');
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('resetButton').style.display = 'none'; 
 }
 
-// Adding event listeners to category buttons
+
+function checkWin() {
+    for (let i = 0; i < chosenWord.length; i++) {
+        if (document.getElementById('letter-' + i).textContent.trim() === '_') {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+function displayConfetti() {
+    const confettiContainer = document.createElement('div');
+    confettiContainer.id = 'confettiContainer';
+    document.body.appendChild(confettiContainer);
+
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+        confettiContainer.appendChild(confetti);
+    }
+}
+
+
+function disableAllButtons() {
+    const letterButtons = document.querySelectorAll('.letter');
+    letterButtons.forEach(button => {
+        button.disabled = true;
+    });
+}
+
+
+function resetGame() {
+    location.reload();
+}
+
 document.getElementById('animals').addEventListener('click', handleCategorySelection);
 document.getElementById('foods').addEventListener('click', handleCategorySelection);
 
-// Adding event listeners to letter buttons
 const letterButtons = document.querySelectorAll('.letter');
 letterButtons.forEach(button => {
     button.addEventListener('click', handleLetterClick);
 });
+
+document.getElementById('resetButton').addEventListener('click', resetGame);
+
+
+drawStand();
